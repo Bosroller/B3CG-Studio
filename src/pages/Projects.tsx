@@ -93,20 +93,20 @@ export default function Projects() {
   }));
 
   if (loading) {
-    return <div className="p-6 text-slate-400">Loading projects...</div>;
+    return <div className="p-3 sm:p-6 text-slate-400">Loading projects...</div>;
   }
 
   return (
-    <div className="p-6">
-      <div className="mb-6">
-        <h1 className="text-3xl font-bold text-white mb-2">Projects</h1>
-        <p className="text-slate-400">Manage your creative projects in one place</p>
+    <div className="p-3 sm:p-6">
+      <div className="mb-4 sm:mb-6">
+        <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2">Projects</h1>
+        <p className="text-sm sm:text-base text-slate-400">Manage your creative projects in one place</p>
       </div>
 
-      <div className="overflow-x-auto pb-4">
-        <div className="flex gap-6 min-w-full">
+      <div className="overflow-x-auto pb-4 -mx-3 sm:mx-0 px-3 sm:px-0">
+        <div className="flex gap-3 sm:gap-6 min-w-full md:min-w-0">
           {columns.map((column) => (
-            <div key={column.status} className="flex-shrink-0 w-80 bg-slate-800 rounded-lg p-4">
+            <div key={column.status} className="flex-shrink-0 w-72 sm:w-80 bg-slate-800 rounded-lg p-3 sm:p-4">
               <div className="flex items-center justify-between mb-4">
                 <h2 className="font-semibold text-white">{column.status}</h2>
                 <span className="text-xs bg-slate-700 text-slate-300 px-2 py-1 rounded">
@@ -114,7 +114,7 @@ export default function Projects() {
                 </span>
               </div>
 
-              <div className="space-y-3 min-h-[500px]">
+              <div className="space-y-3 min-h-[300px] sm:min-h-[500px]">
                 {column.projects.map((project) => (
                   <ProjectCard
                     key={project.id}
@@ -136,7 +136,7 @@ export default function Projects() {
                     setNewProjectStatus(column.status);
                     setShowNewProjectModal(true);
                   }}
-                  className="w-full p-3 border-2 border-dashed border-slate-600 rounded-lg text-slate-400 hover:border-slate-500 hover:text-slate-300 transition-colors flex items-center justify-center gap-2"
+                  className="w-full p-3 border-2 border-dashed border-slate-600 rounded-lg text-slate-400 hover:border-slate-500 hover:text-slate-300 transition-colors flex items-center justify-center gap-2 min-h-[44px]"
                 >
                   <Plus className="w-4 h-4" />
                   <span className="text-sm">Add Project</span>
@@ -162,8 +162,8 @@ export default function Projects() {
       )}
 
       {showNewProjectModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-slate-800 rounded-lg p-6 max-w-md w-full mx-4 border border-slate-700">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-slate-800 rounded-lg p-4 sm:p-6 max-w-md w-full border border-slate-700">
             <h2 className="text-xl font-bold text-white mb-4">Create New Project</h2>
             <input
               type="text"

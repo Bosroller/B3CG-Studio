@@ -20,7 +20,7 @@ interface Session {
 
 export default function MainApp({ session }: { session: Session }) {
   const [currentPage, setCurrentPage] = useState<PageType>('dashboard');
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [sidebarOpen, setSidebarOpen] = useState(window.innerWidth >= 768);
   const [userEmail, setUserEmail] = useState('');
 
   useEffect(() => {
@@ -49,9 +49,14 @@ export default function MainApp({ session }: { session: Session }) {
   };
 
   return (
-    <div className="flex h-screen bg-slate-950 text-slate-100">
-      <Sidebar currentPage={currentPage} setCurrentPage={setCurrentPage} sidebarOpen={sidebarOpen} />
-      <div className="flex-1 flex flex-col overflow-hidden">
+    <div className="flex h-screen w-screen bg-slate-950 text-slate-100 overflow-hidden">
+      <Sidebar
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        sidebarOpen={sidebarOpen}
+        onClose={() => setSidebarOpen(false)}
+      />
+      <div className="flex-1 flex flex-col overflow-hidden min-w-0">
         <TopBar
           onMenuClick={() => setSidebarOpen(!sidebarOpen)}
           sidebarOpen={sidebarOpen}

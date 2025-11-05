@@ -81,22 +81,22 @@ export default function Team() {
   };
 
   if (loading) {
-    return <div className="p-6 text-slate-400">Loading team...</div>;
+    return <div className="p-3 sm:p-6 text-slate-400">Loading team...</div>;
   }
 
   return (
-    <div className="p-6 space-y-6">
-      <div className="flex items-center justify-between">
+    <div className="p-3 sm:p-6 space-y-4 sm:space-y-6">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-white mb-2 flex items-center gap-2">
-            <Users className="w-8 h-8" />
+          <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2 flex items-center gap-2">
+            <Users className="w-6 h-6 sm:w-8 sm:h-8" />
             Team Management
           </h1>
-          <p className="text-slate-400">Manage your team members and their roles</p>
+          <p className="text-sm sm:text-base text-slate-400">Manage your team members and their roles</p>
         </div>
         <Button
           onClick={() => setShowForm(!showForm)}
-          className="bg-blue-600 hover:bg-blue-700 flex items-center gap-2"
+          className="bg-blue-600 hover:bg-blue-700 flex items-center gap-2 min-h-[44px] w-full sm:w-auto"
         >
           <Plus className="w-4 h-4" />
           Add Member
@@ -161,7 +161,7 @@ export default function Team() {
         </div>
       )}
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
         {teamMembers.map((member) => (
           <div key={member.id} className="bg-slate-800 rounded-lg border border-slate-700 p-6">
             <div className="flex items-center gap-4 mb-4">

@@ -19,13 +19,13 @@ export default function Settings({ session }: SettingsProps) {
   };
 
   return (
-    <div className="p-6 space-y-6">
+    <div className="p-3 sm:p-6 space-y-4 sm:space-y-6">
       <div>
-        <h1 className="text-3xl font-bold text-white mb-2 flex items-center gap-2">
-          <SettingsIcon className="w-8 h-8" />
+        <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2 flex items-center gap-2">
+          <SettingsIcon className="w-6 h-6 sm:w-8 sm:h-8" />
           Settings
         </h1>
-        <p className="text-slate-400">Manage your account and application preferences</p>
+        <p className="text-sm sm:text-base text-slate-400">Manage your account and application preferences</p>
       </div>
 
       <Card className="bg-slate-800 border-slate-700">

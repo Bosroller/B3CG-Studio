@@ -56,42 +56,45 @@ export default function ContentCalendar() {
   };
 
   if (loading) {
-    return <div className="p-6 text-slate-400">Loading content calendar...</div>;
+    return <div className="p-3 sm:p-6 text-slate-400">Loading content calendar...</div>;
   }
 
   return (
-    <div className="p-6 space-y-6">
+    <div className="p-3 sm:p-6 space-y-4 sm:space-y-6">
       <div>
-        <h1 className="text-3xl font-bold text-white mb-2 flex items-center gap-2">
-          <Video className="w-8 h-8" />
+        <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2 flex items-center gap-2">
+          <Video className="w-6 h-6 sm:w-8 sm:h-8" />
           Content Calendar
         </h1>
-        <p className="text-slate-400">Plan and schedule your content across platforms</p>
+        <p className="text-sm sm:text-base text-slate-400">Plan and schedule your content across platforms</p>
       </div>
 
-      <div className="bg-slate-800 rounded-lg border border-slate-700 p-6">
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-xl font-semibold text-white">
+      <div className="bg-slate-800 rounded-lg border border-slate-700 p-3 sm:p-6">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 sm:mb-6 gap-3">
+          <h2 className="text-base sm:text-xl font-semibold text-white">
             Week of {weekDays[0].toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} -{' '}
             {weekDays[6].toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
           </h2>
-          <div className="flex gap-2">
+          <div className="flex gap-2 w-full sm:w-auto">
             <Button
               variant="outline"
               onClick={() => setSelectedWeek(selectedWeek - 1)}
+              className="min-h-[44px] flex-1 sm:flex-none text-xs sm:text-sm"
             >
               Previous
             </Button>
             <Button
               variant="outline"
               onClick={() => setSelectedWeek(selectedWeek + 1)}
+              className="min-h-[44px] flex-1 sm:flex-none text-xs sm:text-sm"
             >
               Next
             </Button>
           </div>
         </div>
 
-        <div className="grid grid-cols-7 gap-4">
+        <div className="overflow-x-auto -mx-3 sm:mx-0 px-3 sm:px-0">
+          <div className="grid grid-cols-7 gap-2 sm:gap-4 min-w-[700px] sm:min-w-0">
           {weekDays.map((day, dayIndex) => {
             const dayPosts = posts.filter((p) => {
               const postDate = new Date(p.scheduled_date);
@@ -139,7 +142,7 @@ export default function ContentCalendar() {
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="mt-2 text-blue-400 hover:text-blue-300 w-full justify-center"
+                  className="mt-2 text-blue-400 hover:text-blue-300 w-full justify-center min-h-[44px]"
                 >
                   <Plus className="w-4 h-4 mr-1" />
                   Add Post
@@ -147,10 +150,11 @@ export default function ContentCalendar() {
               </div>
             );
           })}
+          </div>
         </div>
       </div>
 
-      <div className="bg-slate-800 rounded-lg border border-slate-700 p-6">
+      <div className="bg-slate-800 rounded-lg border border-slate-700 p-3 sm:p-6">
         <h2 className="text-xl font-semibold text-white mb-4">All Scheduled Posts</h2>
         <div className="space-y-3">
           {posts.slice(0, 10).map((post) => {

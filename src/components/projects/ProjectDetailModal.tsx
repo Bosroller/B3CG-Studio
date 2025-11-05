@@ -154,16 +154,16 @@ export default function ProjectDetailModal({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-3 sm:p-4">
       <div className="bg-slate-800 rounded-lg border border-slate-700 max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-        <div className="sticky top-0 bg-slate-800 border-b border-slate-700 p-6 flex items-center justify-between">
-          <h2 className="text-2xl font-bold text-white">Project Details</h2>
-          <button onClick={onClose} className="text-slate-400 hover:text-slate-200">
+        <div className="sticky top-0 bg-slate-800 border-b border-slate-700 p-4 sm:p-6 flex items-center justify-between">
+          <h2 className="text-xl sm:text-2xl font-bold text-white">Project Details</h2>
+          <button onClick={onClose} className="text-slate-400 hover:text-slate-200 min-h-[44px] min-w-[44px] flex items-center justify-center">
             <X className="w-6 h-6" />
           </button>
         </div>
 
-        <div className="p-6 space-y-6">
+        <div className="p-4 sm:p-6 space-y-4 sm:space-y-6">
           <div>
             <label className="text-sm text-slate-400 mb-2 block">Title</label>
             <Input
@@ -182,7 +182,7 @@ export default function ProjectDetailModal({
             />
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="text-sm text-slate-400 mb-2 block">Status</label>
               <Select
@@ -275,7 +275,7 @@ export default function ProjectDetailModal({
                 placeholder="Add material..."
                 className="bg-slate-700 border-slate-600 text-white"
               />
-              <Button onClick={handleAddMaterial} size="icon" className="bg-blue-600 hover:bg-blue-700">
+              <Button onClick={handleAddMaterial} size="icon" className="bg-blue-600 hover:bg-blue-700 min-h-[44px] min-w-[44px]">
                 <Plus className="w-4 h-4" />
               </Button>
             </div>
@@ -306,18 +306,18 @@ export default function ProjectDetailModal({
               <Button
                 onClick={handleAddComment}
                 size="icon"
-                className="bg-blue-600 hover:bg-blue-700 self-end"
+                className="bg-blue-600 hover:bg-blue-700 self-end min-h-[44px] min-w-[44px]"
               >
                 <Plus className="w-4 h-4" />
               </Button>
             </div>
           </div>
 
-          <div className="flex gap-2 pt-4 border-t border-slate-700">
+          <div className="flex flex-col sm:flex-row gap-2 pt-4 border-t border-slate-700">
             <Button
               onClick={handleSave}
               disabled={loading}
-              className="flex-1 bg-blue-600 hover:bg-blue-700 flex items-center gap-2"
+              className="flex-1 bg-blue-600 hover:bg-blue-700 flex items-center justify-center gap-2 min-h-[44px]"
             >
               <Save className="w-4 h-4" />
               Save Changes
@@ -325,7 +325,7 @@ export default function ProjectDetailModal({
             <Button
               onClick={handleDelete}
               variant="destructive"
-              className="flex-1 bg-red-600 hover:bg-red-700"
+              className="flex-1 bg-red-600 hover:bg-red-700 min-h-[44px]"
             >
               <Trash2 className="w-4 h-4 mr-2" />
               Delete

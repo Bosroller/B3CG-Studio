@@ -59,43 +59,43 @@ export default function Calendar() {
   };
 
   if (loading) {
-    return <div className="p-6 text-slate-400">Loading calendar...</div>;
+    return <div className="p-3 sm:p-6 text-slate-400">Loading calendar...</div>;
   }
 
   const monthName = currentDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
 
   return (
-    <div className="p-6 space-y-6">
+    <div className="p-3 sm:p-6 space-y-4 sm:space-y-6">
       <div>
-        <h1 className="text-3xl font-bold text-white mb-2 flex items-center gap-2">
-          <CalendarIcon className="w-8 h-8" />
+        <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2 flex items-center gap-2">
+          <CalendarIcon className="w-6 h-6 sm:w-8 sm:h-8" />
           Shoot Calendar
         </h1>
-        <p className="text-slate-400">Schedule and manage your filming dates</p>
+        <p className="text-sm sm:text-base text-slate-400">Schedule and manage your filming dates</p>
       </div>
 
-      <div className="bg-slate-800 rounded-lg border border-slate-700 p-6">
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-2xl font-bold text-white">{monthName}</h2>
+      <div className="bg-slate-800 rounded-lg border border-slate-700 p-3 sm:p-6">
+        <div className="flex items-center justify-between mb-4 sm:mb-6 gap-2">
+          <h2 className="text-lg sm:text-2xl font-bold text-white">{monthName}</h2>
           <div className="flex gap-2">
-            <Button variant="outline" onClick={handlePrevMonth}>
+            <Button variant="outline" onClick={handlePrevMonth} className="min-h-[44px] text-xs sm:text-sm">
               Previous
             </Button>
-            <Button variant="outline" onClick={handleNextMonth}>
+            <Button variant="outline" onClick={handleNextMonth} className="min-h-[44px] text-xs sm:text-sm">
               Next
             </Button>
           </div>
         </div>
 
-        <div className="grid grid-cols-7 gap-2 mb-4">
+        <div className="grid grid-cols-7 gap-1 sm:gap-2 mb-3 sm:mb-4">
           {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day) => (
-            <div key={day} className="text-center text-sm font-semibold text-slate-400 py-2">
+            <div key={day} className="text-center text-xs sm:text-sm font-semibold text-slate-400 py-1 sm:py-2">
               {day}
             </div>
           ))}
         </div>
 
-        <div className="grid grid-cols-7 gap-2">
+        <div className="grid grid-cols-7 gap-1 sm:gap-2">
           {emptyDays.map((_, i) => (
             <div key={`empty-${i}`} className="aspect-square bg-slate-900 rounded-lg"></div>
           ))}

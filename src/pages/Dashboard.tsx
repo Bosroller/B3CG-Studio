@@ -68,17 +68,17 @@ export default function Dashboard() {
   ];
 
   if (loading) {
-    return <div className="p-6 text-slate-400">Loading dashboard...</div>;
+    return <div className="p-3 sm:p-6 text-slate-400">Loading dashboard...</div>;
   }
 
   return (
-    <div className="p-6 space-y-6">
+    <div className="p-3 sm:p-6 space-y-4 sm:space-y-6">
       <div>
-        <h1 className="text-3xl font-bold text-white mb-2">Dashboard</h1>
-        <p className="text-slate-400">Welcome back! Here's your project overview.</p>
+        <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2">Dashboard</h1>
+        <p className="text-sm sm:text-base text-slate-400">Welcome back! Here's your project overview.</p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         {stats.map((stat, index) => {
           const Icon = stat.icon;
           return (
