@@ -20,6 +20,14 @@ export default function AnalysisResults({
   const { toast } = useToast();
   const [activeTab, setActiveTab] = useState('overview');
 
+  if (!analysis) {
+    return (
+      <div className="p-6 bg-slate-900 rounded-lg border border-slate-700">
+        <p className="text-slate-400">No analysis data available</p>
+      </div>
+    );
+  }
+
   const getScoreColor = (score: number) => {
     if (score >= 71) return 'text-green-400';
     if (score >= 41) return 'text-orange-400';
@@ -171,14 +179,18 @@ export default function AnalysisResults({
             </CardHeader>
             <CardContent>
               <ol className="space-y-3">
-                {analysis.topThreePriorityActions.map((action, idx) => (
-                  <li key={idx} className="flex gap-3">
-                    <span className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-500 text-white text-sm flex items-center justify-center">
-                      {idx + 1}
-                    </span>
-                    <p className="text-slate-200 flex-1">{action}</p>
-                  </li>
-                ))}
+                {analysis?.topThreePriorityActions && Array.isArray(analysis.topThreePriorityActions) ? (
+                  analysis.topThreePriorityActions.map((action, idx) => (
+                    <li key={idx} className="flex gap-3">
+                      <span className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-500 text-white text-sm flex items-center justify-center">
+                        {idx + 1}
+                      </span>
+                      <p className="text-slate-200 flex-1">{action}</p>
+                    </li>
+                  ))
+                ) : (
+                  <p className="text-slate-400">No priority actions available</p>
+                )}
               </ol>
             </CardContent>
           </Card>
@@ -255,24 +267,28 @@ export default function AnalysisResults({
             </CardHeader>
             <CardContent>
               <div className="space-y-3">
-                {analysis.bestPracticeComparison.map((practice, idx) => (
-                  <div
-                    key={idx}
-                    className="p-4 bg-slate-800/50 rounded-lg border border-slate-700"
-                  >
-                    <div className="flex items-start gap-3">
-                      {practice.met ? (
-                        <CheckCircle2 className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
-                      ) : (
-                        <XCircle className="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" />
-                      )}
-                      <div className="flex-1">
-                        <p className="text-slate-200 font-medium mb-1">{practice.practice}</p>
-                        <p className="text-sm text-slate-400">{practice.notes}</p>
+                {analysis?.bestPracticeComparison && Array.isArray(analysis.bestPracticeComparison) ? (
+                  analysis.bestPracticeComparison.map((practice, idx) => (
+                    <div
+                      key={idx}
+                      className="p-4 bg-slate-800/50 rounded-lg border border-slate-700"
+                    >
+                      <div className="flex items-start gap-3">
+                        {practice.met ? (
+                          <CheckCircle2 className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
+                        ) : (
+                          <XCircle className="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" />
+                        )}
+                        <div className="flex-1">
+                          <p className="text-slate-200 font-medium mb-1">{practice.practice}</p>
+                          <p className="text-sm text-slate-400">{practice.notes}</p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  ))
+                ) : (
+                  <p className="text-slate-400">No practices available</p>
+                )}
               </div>
             </CardContent>
           </Card>
@@ -285,41 +301,45 @@ export default function AnalysisResults({
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                {analysis.timestampedImprovements.map((improvement, idx) => (
-                  <div
-                    key={idx}
-                    className="p-4 bg-slate-800/50 rounded-lg border border-slate-700 hover:border-blue-500 transition-colors cursor-pointer"
-                    onClick={() => onTimestampClick?.(parseTimeRange(improvement.timeRange))}
-                  >
-                    <div className="flex items-start justify-between mb-3">
-                      <Badge variant="outline" className="border-blue-400 text-blue-400">
-                        {improvement.timeRange}
-                      </Badge>
-                      <Badge
-                        variant="outline"
-                        className={
-                          improvement.expectedImpact.toLowerCase().includes('high')
-                            ? 'border-green-400 text-green-400'
-                            : improvement.expectedImpact.toLowerCase().includes('medium')
-                            ? 'border-orange-400 text-orange-400'
-                            : 'border-slate-400 text-slate-400'
-                        }
-                      >
-                        {improvement.expectedImpact}
-                      </Badge>
-                    </div>
-                    <div className="space-y-2">
-                      <div>
-                        <p className="text-xs text-slate-500 mb-1">Problem</p>
-                        <p className="text-sm text-slate-300">{improvement.problem}</p>
+                {analysis?.timestampedImprovements && Array.isArray(analysis.timestampedImprovements) ? (
+                  analysis.timestampedImprovements.map((improvement, idx) => (
+                    <div
+                      key={idx}
+                      className="p-4 bg-slate-800/50 rounded-lg border border-slate-700 hover:border-blue-500 transition-colors cursor-pointer"
+                      onClick={() => onTimestampClick?.(parseTimeRange(improvement.timeRange))}
+                    >
+                      <div className="flex items-start justify-between mb-3">
+                        <Badge variant="outline" className="border-blue-400 text-blue-400">
+                          {improvement.timeRange}
+                        </Badge>
+                        <Badge
+                          variant="outline"
+                          className={
+                            improvement.expectedImpact.toLowerCase().includes('high')
+                              ? 'border-green-400 text-green-400'
+                              : improvement.expectedImpact.toLowerCase().includes('medium')
+                              ? 'border-orange-400 text-orange-400'
+                              : 'border-slate-400 text-slate-400'
+                          }
+                        >
+                          {improvement.expectedImpact}
+                        </Badge>
                       </div>
-                      <div>
-                        <p className="text-xs text-slate-500 mb-1">Suggested Change</p>
-                        <p className="text-sm text-slate-200">{improvement.suggestedChange}</p>
+                      <div className="space-y-2">
+                        <div>
+                          <p className="text-xs text-slate-500 mb-1">Problem</p>
+                          <p className="text-sm text-slate-300">{improvement.problem}</p>
+                        </div>
+                        <div>
+                          <p className="text-xs text-slate-500 mb-1">Suggested Change</p>
+                          <p className="text-sm text-slate-200">{improvement.suggestedChange}</p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  ))
+                ) : (
+                  <p className="text-slate-400">No improvements available</p>
+                )}
               </div>
             </CardContent>
           </Card>
@@ -332,22 +352,26 @@ export default function AnalysisResults({
             </CardHeader>
             <CardContent>
               <div className="space-y-3">
-                {analysis.safeRewriteSuggestions.hookAlternatives.map((hook, idx) => (
-                  <div
-                    key={idx}
-                    className="p-3 bg-slate-800/50 rounded-lg border border-slate-700 flex items-start justify-between gap-3"
-                  >
-                    <p className="text-slate-200 flex-1">{hook}</p>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => copyToClipboard(hook)}
-                      className="flex-shrink-0"
+                {analysis?.safeRewriteSuggestions?.hookAlternatives && Array.isArray(analysis.safeRewriteSuggestions.hookAlternatives) ? (
+                  analysis.safeRewriteSuggestions.hookAlternatives.map((hook, idx) => (
+                    <div
+                      key={idx}
+                      className="p-3 bg-slate-800/50 rounded-lg border border-slate-700 flex items-start justify-between gap-3"
                     >
-                      <Copy className="w-4 h-4" />
-                    </Button>
-                  </div>
-                ))}
+                      <p className="text-slate-200 flex-1">{hook}</p>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => copyToClipboard(hook)}
+                        className="flex-shrink-0"
+                      >
+                        <Copy className="w-4 h-4" />
+                      </Button>
+                    </div>
+                  ))
+                ) : (
+                  <p className="text-slate-400">No hook alternatives available</p>
+                )}
               </div>
             </CardContent>
           </Card>
@@ -358,22 +382,26 @@ export default function AnalysisResults({
             </CardHeader>
             <CardContent>
               <div className="space-y-3">
-                {analysis.safeRewriteSuggestions.ctaSuggestions.map((cta, idx) => (
-                  <div
-                    key={idx}
-                    className="p-3 bg-slate-800/50 rounded-lg border border-slate-700 flex items-start justify-between gap-3"
-                  >
-                    <p className="text-slate-200 flex-1">{cta}</p>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => copyToClipboard(cta)}
-                      className="flex-shrink-0"
+                {analysis?.safeRewriteSuggestions?.ctaSuggestions && Array.isArray(analysis.safeRewriteSuggestions.ctaSuggestions) ? (
+                  analysis.safeRewriteSuggestions.ctaSuggestions.map((cta, idx) => (
+                    <div
+                      key={idx}
+                      className="p-3 bg-slate-800/50 rounded-lg border border-slate-700 flex items-start justify-between gap-3"
                     >
-                      <Copy className="w-4 h-4" />
-                    </Button>
-                  </div>
-                ))}
+                      <p className="text-slate-200 flex-1">{cta}</p>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => copyToClipboard(cta)}
+                        className="flex-shrink-0"
+                      >
+                        <Copy className="w-4 h-4" />
+                      </Button>
+                    </div>
+                  ))
+                ) : (
+                  <p className="text-slate-400">No CTA suggestions available</p>
+                )}
               </div>
             </CardContent>
           </Card>
