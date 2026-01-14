@@ -9,7 +9,7 @@ import { useToast } from '../../hooks/use-toast';
 import type { AnalysisData } from '../../types';
 
 interface AnalysisResultsProps {
-  analysis: AnalysisData;
+  analysis?: AnalysisData;
   onTimestampClick?: (timeInSeconds: number) => void;
 }
 
