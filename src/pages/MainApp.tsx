@@ -6,10 +6,11 @@ import Dashboard from './Dashboard';
 import Projects from './Projects';
 import Calendar from './Calendar';
 import ContentCalendar from './ContentCalendar';
+import AIVideoAnalyzer from './AIVideoAnalyzer';
 import Team from './Team';
 import Settings from './Settings';
 
-type PageType = 'dashboard' | 'projects' | 'calendar' | 'content' | 'team' | 'settings';
+type PageType = 'dashboard' | 'projects' | 'calendar' | 'content' | 'analyzer' | 'team' | 'settings';
 
 interface Session {
   user: {
@@ -39,6 +40,8 @@ export default function MainApp({ session }: { session: Session }) {
         return <Calendar />;
       case 'content':
         return <ContentCalendar />;
+      case 'analyzer':
+        return <AIVideoAnalyzer />;
       case 'team':
         return <Team />;
       case 'settings':

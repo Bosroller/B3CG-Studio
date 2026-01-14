@@ -1,4 +1,4 @@
-import { LayoutGrid, Kanban, Calendar, Video, Users, Settings, Camera, X } from 'lucide-react';
+import { LayoutGrid, Kanban, Calendar, Video, Users, Settings, Camera, X, Sparkles } from 'lucide-react';
 import { cn } from '../../lib/utils';
 
 interface SidebarProps {
@@ -14,6 +14,7 @@ export default function Sidebar({ currentPage, setCurrentPage, sidebarOpen, onCl
     { id: 'projects', label: 'Projects', icon: Kanban },
     { id: 'calendar', label: 'Shoot Calendar', icon: Calendar },
     { id: 'content', label: 'Content Calendar', icon: Video },
+    { id: 'analyzer', label: 'AI Analyzer', icon: Sparkles },
     { id: 'team', label: 'Team', icon: Users },
     { id: 'settings', label: 'Settings', icon: Settings },
   ];

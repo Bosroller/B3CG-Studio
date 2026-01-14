@@ -1,0 +1,256 @@
+import { supabase } from './supabase';
+import type { VideoAnalysis, ChatMessage } from '../types';
+
+export async function createVideoAnalysis(
+  fileName: string,
+  fileSize: number,
+  duration?: number
+): Promise<{ data: VideoAnalysis | null; error: Error | null }> {
+  try {
+    const { data: { user } } = await supabase.auth.getUser();
+
+    if (!user) {
+      return { data: null, error: new Error('User not authenticated') };
+    }
+
+    const { data, error } = await supabase
+      .from('video_analyses')
+      .insert({
+        user_id: user.id,
+        file_name: fileName,
+        file_size: fileSize,
+        duration,
+        status: 'uploading',
+        chat_history: [],
+      })
+      .select()
+      .single();
+
+    if (error) {
+      return { data: null, error: new Error(error.message) };
+    }
+
+    return { data: data as VideoAnalysis, error: null };
+  } catch (error) {
+    return {
+      data: null,
+      error: error instanceof Error ? error : new Error('Unknown error')
+    };
+  }
+}
+
+export async function uploadVideoToStorage(
+  file: File,
+  videoId: string
+): Promise<{ url: string | null; error: Error | null }> {
+  try {
+    const { data: { user } } = await supabase.auth.getUser();
+
+    if (!user) {
+      return { url: null, error: new Error('User not authenticated') };
+    }
+
+    const fileExt = file.name.split('.').pop();
+    const filePath = `${user.id}/${videoId}.${fileExt}`;
+
+    const { error: uploadError } = await supabase.storage
+      .from('videos')
+      .upload(filePath, file, {
+        cacheControl: '3600',
+        upsert: false,
+      });
+
+    if (uploadError) {
+      return { url: null, error: new Error(uploadError.message) };
+    }
+
+    const { data: urlData } = supabase.storage
+      .from('videos')
+      .getPublicUrl(filePath);
+
+    return { url: urlData.publicUrl, error: null };
+  } catch (error) {
+    return {
+      url: null,
+      error: error instanceof Error ? error : new Error('Unknown error')
+    };
+  }
+}
+
+export async function updateVideoAnalysisUrl(
+  videoId: string,
+  videoUrl: string
+): Promise<{ error: Error | null }> {
+  try {
+    const { error } = await supabase
+      .from('video_analyses')
+      .update({
+        video_url: videoUrl,
+        status: 'processing',
+        updated_at: new Date().toISOString(),
+      })
+      .eq('id', videoId);
+
+    if (error) {
+      return { error: new Error(error.message) };
+    }
+
+    return { error: null };
+  } catch (error) {
+    return {
+      error: error instanceof Error ? error : new Error('Unknown error')
+    };
+  }
+}
+
+export async function triggerVideoAnalysis(
+  videoId: string,
+  fileName: string,
+  fileSize: number
+): Promise<{ error: Error | null }> {
+  try {
+    const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+    const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+
+    const response = await fetch(`${supabaseUrl}/functions/v1/analyze-video`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${supabaseKey}`,
+      },
+      body: JSON.stringify({
+        videoId,
+        fileName,
+        fileSize,
+      }),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      return { error: new Error(errorData.error || 'Failed to trigger analysis') };
+    }
+
+    return { error: null };
+  } catch (error) {
+    return {
+      error: error instanceof Error ? error : new Error('Unknown error')
+    };
+  }
+}
+
+export async function getVideoAnalysis(
+  videoId: string
+): Promise<{ data: VideoAnalysis | null; error: Error | null }> {
+  try {
+    const { data, error } = await supabase
+      .from('video_analyses')
+      .select('*')
+      .eq('id', videoId)
+      .single();
+
+    if (error) {
+      return { data: null, error: new Error(error.message) };
+    }
+
+    return { data: data as VideoAnalysis, error: null };
+  } catch (error) {
+    return {
+      data: null,
+      error: error instanceof Error ? error : new Error('Unknown error')
+    };
+  }
+}
+
+export async function sendChatMessage(
+  videoId: string,
+  question: string,
+  analysisData: any,
+  chatHistory: ChatMessage[]
+): Promise<{ response: string | null; error: Error | null }> {
+  try {
+    const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+    const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+
+    const response = await fetch(`${supabaseUrl}/functions/v1/ask-about-video`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${supabaseKey}`,
+      },
+      body: JSON.stringify({
+        videoId,
+        question,
+        analysisData,
+        chatHistory,
+      }),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      return { response: null, error: new Error(errorData.error || 'Failed to send message') };
+    }
+
+    const data = await response.json();
+    return { response: data.response, error: null };
+  } catch (error) {
+    return {
+      response: null,
+      error: error instanceof Error ? error : new Error('Unknown error')
+    };
+  }
+}
+
+export async function updateChatHistory(
+  videoId: string,
+  chatHistory: ChatMessage[]
+): Promise<{ error: Error | null }> {
+  try {
+    const { error } = await supabase
+      .from('video_analyses')
+      .update({
+        chat_history: chatHistory,
+        updated_at: new Date().toISOString(),
+      })
+      .eq('id', videoId);
+
+    if (error) {
+      return { error: new Error(error.message) };
+    }
+
+    return { error: null };
+  } catch (error) {
+    return {
+      error: error instanceof Error ? error : new Error('Unknown error')
+    };
+  }
+}
+
+export async function getUserVideoAnalyses(): Promise<{
+  data: VideoAnalysis[] | null;
+  error: Error | null
+}> {
+  try {
+    const { data: { user } } = await supabase.auth.getUser();
+
+    if (!user) {
+      return { data: null, error: new Error('User not authenticated') };
+    }
+
+    const { data, error } = await supabase
+      .from('video_analyses')
+      .select('*')
+      .eq('user_id', user.id)
+      .order('created_at', { ascending: false });
+
+    if (error) {
+      return { data: null, error: new Error(error.message) };
+    }
+
+    return { data: data as VideoAnalysis[], error: null };
+  } catch (error) {
+    return {
+      data: null,
+      error: error instanceof Error ? error : new Error('Unknown error')
+    };
+  }
+}

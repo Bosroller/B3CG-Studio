@@ -89,3 +89,82 @@ export interface ContentPost {
   thumbnail?: string;
   created_at: string;
 }
+
+export type VideoAnalysisStatus = 'uploading' | 'processing' | 'completed' | 'failed';
+
+export interface ViralityEvaluation {
+  overallVerdict: string;
+  viralityScore: number;
+  confidenceLevel: string;
+  primaryRisk: string;
+}
+
+export interface HookEvaluation {
+  hookPresentFirst2Seconds: boolean;
+  hookStrength: 'weak' | 'medium' | 'strong';
+  reasoning: string;
+}
+
+export interface BestPractice {
+  practice: string;
+  met: boolean;
+  notes: string;
+}
+
+export interface RetentionAnalysis {
+  earlyDropOffRisk: string;
+  pacingQuality: string;
+  structureIssues: string[];
+}
+
+export interface LoopabilityAnalysis {
+  loopPresent: boolean;
+  loopPotential: string;
+  recommendation: string;
+}
+
+export interface TimestampedImprovement {
+  timeRange: string;
+  problem: string;
+  suggestedChange: string;
+  expectedImpact: string;
+}
+
+export interface SafeRewriteSuggestions {
+  hookAlternatives: string[];
+  ctaSuggestions: string[];
+}
+
+export interface AnalysisData {
+  videoId: string;
+  viralityEvaluation: ViralityEvaluation;
+  hookEvaluation: HookEvaluation;
+  bestPracticeComparison: BestPractice[];
+  retentionAnalysis: RetentionAnalysis;
+  loopabilityAnalysis: LoopabilityAnalysis;
+  timestampedImprovements: TimestampedImprovement[];
+  topThreePriorityActions: string[];
+  safeRewriteSuggestions: SafeRewriteSuggestions;
+}
+
+export interface ChatMessage {
+  role: 'user' | 'assistant';
+  message: string;
+  timestamp: string;
+}
+
+export interface VideoAnalysis {
+  id: string;
+  user_id: string;
+  video_url?: string;
+  file_name: string;
+  file_size?: number;
+  duration?: number;
+  uploaded_at: string;
+  status: VideoAnalysisStatus;
+  analysis_data?: AnalysisData;
+  chat_history: ChatMessage[];
+  error_message?: string;
+  created_at: string;
+  updated_at: string;
+}
