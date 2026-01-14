@@ -50,7 +50,7 @@ export default function ContentCalendar() {
   };
 
   const statusColors: Record<string, string> = {
-    Edited: 'bg-blue-600',
+    Edited: 'bg-purple-600',
     Scheduled: 'bg-yellow-600',
     Published: 'bg-green-600',
   };
@@ -111,10 +111,10 @@ export default function ContentCalendar() {
               <div
                 key={dayIndex}
                 className={`rounded-lg border p-4 min-h-64 flex flex-col ${
-                  isToday ? 'bg-blue-900 border-blue-500' : 'bg-slate-700 border-slate-600'
+                  isToday ? 'bg-purple-900 border-purple-500' : 'bg-slate-700 border-slate-600'
                 }`}
               >
-                <h3 className={`font-semibold mb-4 ${isToday ? 'text-blue-200' : 'text-slate-200'}`}>
+                <h3 className={`font-semibold mb-4 ${isToday ? 'text-purple-200' : 'text-slate-200'}`}>
                   {day.toLocaleDateString('en-US', { weekday: 'short' })}
                   <br />
                   <span className="text-2xl">{day.getDate()}</span>

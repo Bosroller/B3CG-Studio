@@ -188,7 +188,7 @@ export default function Calendar() {
                 onClick={() => handleDateClick(day)}
                 className={`aspect-square p-2 rounded-lg border transition-colors flex flex-col items-start justify-start gap-1 text-left group min-h-[60px] sm:min-h-[80px] ${
                   isToday
-                    ? 'bg-blue-600 border-blue-500'
+                    ? 'bg-purple-600 border-purple-500'
                     : dayShoots.length > 0
                       ? 'bg-slate-700 border-slate-600 hover:bg-slate-600'
                       : 'bg-slate-900 border-slate-800 hover:bg-slate-800'
@@ -203,7 +203,7 @@ export default function Calendar() {
                       <div
                         key={idx}
                         className={`text-xs px-1 py-0.5 rounded truncate font-medium ${
-                          isToday ? 'bg-blue-500 text-white' : 'bg-blue-600 text-white'
+                          isToday ? 'bg-purple-500 text-white' : 'bg-purple-600 text-white'
                         }`}
                         title={shoot.project_title}
                       >

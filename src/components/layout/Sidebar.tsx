@@ -1,4 +1,4 @@
-import { LayoutGrid, Kanban, Calendar, Video, Users, Settings, Camera, X } from 'lucide-react';
+import { LayoutGrid, Kanban, Calendar, Video, Users, Settings, Camera, X, Sparkles } from 'lucide-react';
 import { cn } from '../../lib/utils';
 
 interface SidebarProps {
@@ -14,6 +14,7 @@ export default function Sidebar({ currentPage, setCurrentPage, sidebarOpen, onCl
     { id: 'projects', label: 'Projects', icon: Kanban },
     { id: 'calendar', label: 'Shoot Calendar', icon: Calendar },
     { id: 'content', label: 'Content Calendar', icon: Video },
+    { id: 'analyzer', label: 'AI Analyzer', icon: Sparkles },
     { id: 'team', label: 'Team', icon: Users },
     { id: 'settings', label: 'Settings', icon: Settings },
   ];
@@ -35,18 +36,18 @@ export default function Sidebar({ currentPage, setCurrentPage, sidebarOpen, onCl
       )}
       <div
         className={cn(
-          'bg-gradient-to-b from-slate-900 to-slate-950 border-r border-slate-800 flex flex-col transition-all duration-300 z-50',
+          'bg-gradient-to-b from-purple-950 via-purple-900 to-purple-950 border-r border-purple-700 flex flex-col transition-all duration-300 z-50',
           'fixed md:relative h-full',
           sidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0',
           'w-64 md:w-64 lg:w-64',
           !sidebarOpen && 'md:w-20'
         )}
       >
-        <div className={cn('p-4 border-b border-slate-800 flex items-center gap-3', !sidebarOpen && 'md:justify-center')}>
-          <div className="p-2 bg-gradient-to-br from-blue-400 to-blue-600 rounded-lg">
+        <div className={cn('p-4 border-b border-purple-700 flex items-center gap-3', !sidebarOpen && 'md:justify-center')}>
+          <div className="p-2 bg-gradient-to-br from-purple-400 to-purple-600 rounded-lg">
             <Camera className="w-5 h-5 text-white" />
           </div>
-          {(sidebarOpen || window.innerWidth < 768) && <h1 className="font-bold text-lg text-white flex-1">Bosroller</h1>}
+          {(sidebarOpen || window.innerWidth < 768) && <h1 className="font-bold text-lg text-white flex-1">B3CG</h1>}
           {sidebarOpen && onClose && (
             <button
               onClick={onClose}
@@ -67,8 +68,8 @@ export default function Sidebar({ currentPage, setCurrentPage, sidebarOpen, onCl
                 className={cn(
                   'w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all min-h-[44px]',
                   currentPage === item.id
-                    ? 'bg-blue-600 text-white'
-                    : 'text-slate-400 hover:bg-slate-800 hover:text-slate-200'
+                    ? 'bg-gradient-to-r from-purple-600 to-purple-700 text-white'
+                    : 'text-slate-300 hover:bg-purple-800 hover:text-white'
                 )}
                 title={!sidebarOpen ? item.label : ''}
               >

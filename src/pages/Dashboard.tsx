@@ -45,7 +45,7 @@ export default function Dashboard() {
       label: 'Total Projects',
       value: projects.length,
       icon: Zap,
-      color: 'from-blue-500 to-blue-600',
+      color: 'from-purple-500 to-purple-600',
     },
     {
       label: 'In Production',
@@ -119,7 +119,7 @@ export default function Dashboard() {
                   }}
                   labelStyle={{ color: '#e2e8f0' }}
                 />
-                <Bar dataKey="count" fill="#3b82f6" radius={[8, 8, 0, 0]} />
+                <Bar dataKey="count" fill="#a855f7" radius={[8, 8, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </CardContent>

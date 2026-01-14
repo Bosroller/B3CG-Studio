@@ -134,7 +134,7 @@ export default function Team() {
 
   const roleColors: Record<string, string> = {
     admin: 'bg-red-600 text-white',
-    editor: 'bg-blue-600 text-white',
+    editor: 'bg-purple-600 text-white',
     member: 'bg-slate-600 text-slate-100',
   };
 
@@ -159,7 +159,7 @@ export default function Team() {
           {isAdmin && (
             <Button
               onClick={() => setShowForm(!showForm)}
-              className="bg-blue-600 hover:bg-blue-700 flex items-center gap-2 min-h-[44px] w-full sm:w-auto"
+              className="bg-purple-600 hover:bg-purple-700 flex items-center gap-2 min-h-[44px] w-full sm:w-auto"
               disabled={creatingAccount}
             >
               <Plus className="w-4 h-4" />
@@ -170,9 +170,9 @@ export default function Team() {
 
       {showForm && isAdmin && (
         <div className="bg-slate-800 rounded-lg border border-slate-700 p-6">
-          <div className="mb-4 p-3 bg-blue-950 border border-blue-900 rounded-lg flex items-start gap-3">
-            <AlertCircle className="w-5 h-5 text-blue-400 flex-shrink-0 mt-0.5" />
-            <div className="text-sm text-blue-200">
+          <div className="mb-4 p-3 bg-purple-950 border border-purple-900 rounded-lg flex items-start gap-3">
+            <AlertCircle className="w-5 h-5 text-purple-400 flex-shrink-0 mt-0.5" />
+            <div className="text-sm text-purple-200">
               <p className="font-semibold mb-1">Create New Account</p>
               <p>A new Supabase account will be created with the provided credentials. The user can then sign in with this email and password.</p>
             </div>
@@ -236,7 +236,7 @@ export default function Team() {
             <div className="flex gap-2">
               <Button
                 type="submit"
-                className="flex-1 bg-blue-600 hover:bg-blue-700"
+                className="flex-1 bg-purple-600 hover:bg-purple-700"
                 disabled={creatingAccount}
               >
                 {creatingAccount ? 'Creating...' : 'Create Account'}
@@ -259,7 +259,7 @@ export default function Team() {
         {teamMembers.map((member) => (
           <div key={member.id} className="bg-slate-800 rounded-lg border border-slate-700 p-6">
             <div className="flex items-center gap-4 mb-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center text-lg font-bold text-white">
+              <div className="w-12 h-12 bg-gradient-to-br from-purple-400 to-purple-600 rounded-full flex items-center justify-center text-lg font-bold text-white">
                 {member.name.charAt(0).toUpperCase()}
               </div>
               <div className="flex-1">

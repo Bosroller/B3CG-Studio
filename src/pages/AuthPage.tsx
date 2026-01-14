@@ -27,14 +27,14 @@ export default function AuthPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-950 via-slate-900 to-slate-950 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-purple-950 via-purple-900 to-slate-950 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <div className="flex items-center justify-center gap-3 mb-4">
-            <div className="p-3 bg-gradient-to-br from-blue-400 to-blue-600 rounded-lg">
+            <div className="p-3 bg-gradient-to-br from-purple-400 to-purple-600 rounded-lg">
               <Camera className="w-6 h-6 text-white" />
             </div>
-            <h1 className="text-3xl font-bold text-white">Bosroller Studio</h1>
+            <h1 className="text-3xl font-bold text-white">B3CG Studio</h1>
           </div>
           <p className="text-slate-400">Professional creator project management</p>
         </div>
@@ -42,7 +42,7 @@ export default function AuthPage() {
         <Card className="border-slate-700 bg-slate-800">
           <CardHeader>
             <CardTitle className="text-white">Sign In</CardTitle>
-            <CardDescription className="text-slate-400">Welcome back to Bosroller Studio</CardDescription>
+            <CardDescription className="text-slate-400">Welcome back to B3CG Studio</CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleAuth} className="space-y-4">
@@ -70,7 +70,7 @@ export default function AuthPage() {
               <Button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700"
+                className="w-full bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800"
               >
                 {loading ? 'Loading...' : 'Sign In'}
               </Button>
