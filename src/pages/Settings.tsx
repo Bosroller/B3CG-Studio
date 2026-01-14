@@ -55,7 +55,7 @@ export default function Settings({ session }: SettingsProps) {
         <CardContent className="space-y-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <Bell className="w-5 h-5 text-blue-400" />
+              <Bell className="w-5 h-5 text-purple-400" />
               <div>
                 <p className="font-medium text-white">Shoot Reminders</p>
                 <p className="text-sm text-slate-400">Get notified before scheduled shoots</p>
@@ -65,7 +65,7 @@ export default function Settings({ session }: SettingsProps) {
           </div>
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <Bell className="w-5 h-5 text-blue-400" />
+              <Bell className="w-5 h-5 text-purple-400" />
               <div>
                 <p className="font-medium text-white">Project Updates</p>
                 <p className="text-sm text-slate-400">Updates to your projects</p>
@@ -75,7 +75,7 @@ export default function Settings({ session }: SettingsProps) {
           </div>
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <Bell className="w-5 h-5 text-blue-400" />
+              <Bell className="w-5 h-5 text-purple-400" />
               <div>
                 <p className="font-medium text-white">Content Calendar</p>
                 <p className="text-sm text-slate-400">Posting schedule notifications</p>
@@ -89,18 +89,18 @@ export default function Settings({ session }: SettingsProps) {
       <Card className="bg-slate-800 border-slate-700">
         <CardHeader>
           <CardTitle className="text-white">Appearance</CardTitle>
-          <CardDescription className="text-slate-400">Customize how Bosroller Studio looks</CardDescription>
+          <CardDescription className="text-slate-400">Customize how B3CG Studio looks</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <Moon className="w-5 h-5 text-blue-400" />
+              <Moon className="w-5 h-5 text-purple-400" />
               <div>
                 <p className="font-medium text-white">Dark Mode</p>
                 <p className="text-sm text-slate-400">Always enabled</p>
               </div>
             </div>
-            <div className="w-10 h-6 bg-blue-600 rounded-full relative">
+            <div className="w-10 h-6 bg-purple-600 rounded-full relative">
               <div className="w-5 h-5 bg-white rounded-full absolute right-0.5 top-0.5"></div>
             </div>
           </div>
@@ -113,7 +113,7 @@ export default function Settings({ session }: SettingsProps) {
           <CardDescription className="text-slate-400">Manage your security settings</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
-          <Button className="w-full bg-blue-600 hover:bg-blue-700 justify-start gap-2">
+          <Button className="w-full bg-purple-600 hover:bg-purple-700 justify-start gap-2">
             <Lock className="w-4 h-4" />
             Change Password
           </Button>
@@ -143,7 +143,7 @@ export default function Settings({ session }: SettingsProps) {
 
       <div className="bg-slate-900 border border-slate-700 rounded-lg p-4">
         <p className="text-xs text-slate-500">
-          <strong>Bosroller Studio Version:</strong> 1.0.0 • Built with React, Vite, and Supabase
+          <strong>B3CG Studio Version:</strong> 1.0.0 • Built with React, Vite, and Supabase
         </p>
       </div>
     </div>
