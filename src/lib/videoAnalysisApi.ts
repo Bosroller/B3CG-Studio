@@ -56,7 +56,7 @@ export async function uploadVideoToStorage(
 
     const fileExt = file.name.split('.').pop();
     const fileName = `${videoId}.${fileExt}`;
-    const filePath = `${user.id}/${fileName}`;
+    const filePath = `B3CG/${fileName}`;
 
     const { error: uploadError } = await supabase.storage
       .from('videos')
