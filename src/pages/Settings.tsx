@@ -3,6 +3,7 @@ import { Button } from '../components/ui/button';
 import { supabase } from '../lib/supabase';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
 import { Switch } from '../components/ui/switch';
+import { toast } from 'sonner';
 
 interface SettingsProps {
   session: {
@@ -16,6 +17,24 @@ interface SettingsProps {
 export default function Settings({ session }: SettingsProps) {
   const handleSignOut = async () => {
     await supabase.auth.signOut();
+  };
+
+  const handleResetPassword = async () => {
+    if (!session.user.email) {
+      toast.error('Email not found');
+      return;
+    }
+
+    try {
+      const { error } = await supabase.auth.resetPasswordForEmail(session.user.email);
+      if (error) {
+        toast.error('Failed to send password reset email');
+      } else {
+        toast.success('Password reset email sent to ' + session.user.email);
+      }
+    } catch {
+      toast.error('Error sending password reset email');
+    }
   };
 
   return (
@@ -113,7 +132,7 @@ export default function Settings({ session }: SettingsProps) {
           <CardDescription className="text-slate-400">Manage your security settings</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
-          <Button className="w-full bg-purple-600 hover:bg-purple-700 justify-start gap-2">
+          <Button onClick={handleResetPassword} className="w-full bg-purple-600 hover:bg-purple-700 justify-start gap-2">
             <Lock className="w-4 h-4" />
             Change Password
           </Button>
